@@ -15,13 +15,13 @@ NumeralHelper.registerHelpers(Handlebars);
 
 /******************Connection to Database***************************/
 
-const client = new Client {
+const client = new Client ({
       database: 'thesisDatabase',
       user: 'postgres',
       password: 'password',
       host: 'localhost',
       port: 5432
-}
+});
 
 client.connect()
   .then(function () {
