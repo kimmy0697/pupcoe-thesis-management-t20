@@ -82,9 +82,16 @@ app.get('/admin/dashboard', function (req, res){
   })
 })
 
+
+//FACULTIES-----------------------------------------------
+
 app.get('/admin/faculty', function (req, res){
-  res.render('admin/faculty', {
-    layout: 'admin'
+  client.query("SELECT employee_id AS employee_id, fname AS fname, lname AS lname, email AS femail, phone AS fphone, is_admin AS is_admin FROM users WHERE user_type = 'faculty';")
+  .then((faculties)=>{
+    res.render('admin/faculty', {
+      layout: 'admin',
+      faculties: faculties.rows
+    })
   })
 })
 
@@ -94,9 +101,27 @@ app.get('/admin/add_faculty', function (req, res){
   })
 })
 
+app.post('/add_faculty', function (req, res){
+  client.query("INSERT INTO users (fname, lname, email, password, user_type, is_admin, phone, student_number, employee_id) VALUES ('" + req.body.fname + "', '" + req.body.lname + "', '" + req.body.email + "', '" + req.body.password + "', '" + req.body.user_type + "', '" + req.body.is_admin + "', '" + req.body.phone + "', '" + req.body.student_number + "','" + req.body.employee_id + "');")
+  .then((results)=>{
+    console.log('results?', results);
+    res.redirect('/admin/faculty');
+  })
+  .catch((err)=>{
+    console.log('error', err);
+  })
+})
+
+
+//STUDENTS-----------------------------------------------
+
 app.get('/admin/student', function (req, res){
-  res.render('admin/student', {
-    layout: 'admin'
+  client.query("SELECT student_number AS snumber, fname AS fname, lname AS lname, email AS semail, phone AS sphone FROM users WHERE user_type = 'student';")
+  .then((students)=>{
+    res.render('admin/student', {
+      layout: 'admin',
+      students: students.rows
+    })
   })
 })
 
@@ -106,6 +131,20 @@ app.get('/admin/add_student', function (req, res){
   })
 })
 
+app.post('/add_student', function (req, res){
+  client.query("INSERT INTO users (fname, lname, email, password, user_type, is_admin, phone, student_number) VALUES ('" + req.body.fname + "', '" + req.body.lname + "', '" + req.body.email + "', '" + req.body.password + "', '" + req.body.user_type + "', '" + req.body.is_admin + "', '" + req.body.phone + "', '" + req.body.student_number + "');")
+  .then((results)=>{
+    console.log('results?', results);
+    res.redirect('/admin/student');
+  })
+  .catch((err)=>{
+    console.log('error', err);
+  })
+})
+
+
+//CLASSES-----------------------------------------------
+
 app.get('/admin/classes', function (req, res){
   res.render('admin/classes', {
     layout: 'admin'
@@ -113,10 +152,16 @@ app.get('/admin/classes', function (req, res){
 })
 
 app.get('/admin/add_class', function (req, res){
-  res.render('admin/add_class', {
-    layout: 'admin'
+  client.query("SELECT id AS id, fname AS fname, lname AS lname FROM users WHERE user_type = 'faculty' AND user_type = 'admin';")
+  .then((faculties)=>{
+    res.render('admin/add_class', {
+      layout: 'admin',
+      faculties: faculties.rows
+    })
   })
 })
+
+
 
 /*********************Faculty***************************/
 

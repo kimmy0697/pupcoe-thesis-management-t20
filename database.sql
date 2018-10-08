@@ -1,22 +1,37 @@
 CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
-  "fname" VARCHAR(80),
-  "lname" VARCHAR(80),
-  "email" VARCHAR(80),
-  "password" VARCHAR(80),
-  "user_type" VARCHAR(80),
+  "fname" VARCHAR(100),
+  "lname" VARCHAR(100),
+  "email" VARCHAR(100),
+  "password" VARCHAR(100),
+  "user_type" VARCHAR(20),
   "is_admin" BOOLEAN,
-  "phone" INT,
-  "employee_id" INT,
-  "student_number" INT
+  "phone" VARCHAR(100),
+  "employee_id" VARCHAR(100),
+  "student_number" VARCHAR(100)
+);
+
+CREATE TABLE "batches" (
+  "id" SERIAL PRIMARY KEY,
+  "batches" INT
+);
+
+CREATE TABLE "year_levels" (
+  "id" SERIAL PRIMARY KEY,
+  "year_levels" VARCHAR(20)
+);
+
+CREATE TABLE "sections" (
+  "id" SERIAL PRIMARY KEY,
+  "sections" INT
 );
 
 CREATE TABLE "classes" (
   "id" SERIAL PRIMARY KEY,
-  "batch" INT,
-  "year_level" VARCHAR(20),
+  "batch_id" INT REFERENCES batches(id),
+  "year_level_id" INT REFERENCES year_levels(id),
   "adviser_id" INT REFERENCES users(id),
-  "section" VARCHAR(20)
+  "section_id" INT REFERENCES sections(id)
 );
 
 CREATE TABLE "class_students" (
@@ -24,3 +39,4 @@ CREATE TABLE "class_students" (
   "class_id" INT REFERENCES classes(id),
   "student_id" INT REFERENCES users(id)
 );
+

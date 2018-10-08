@@ -15,13 +15,15 @@
           </tr>
         </thead>
         <tbody>
+          {{#each students}}
           <tr>
-            <td>2</td>
-            <td>Kim Leslie Faina</td>
-            <td>kimlesliefaina.klf@gmail.com</td>
-            <td>09169783384</td>
+            <td>{{this.snumber}}</td>
+            <td>{{this.fname}} {{this.lname}}</td>
+            <td>{{this.semail}}</td>
+            <td>{{this.sphone}}</td>
             <td><a href="">view</a></td>
           </tr>
+          {{/each}}
         </tbody>
       </table>
     </div>

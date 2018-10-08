@@ -9,7 +9,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Employee ID</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -18,14 +18,16 @@
           </tr>
         </thead>
         <tbody>
+          {{#each faculties}}
           <tr>
-            <td>2</td>
-            <td>Kim Leslie Faina</td>
-            <td>kimlesliefaina.klf@gmail.com</td>
-            <td>09169783384</td>
-            <td>&check;</td>
-            <td><a href="">view</a></td>
+            <td>{{this.employee_id}}</td>
+            <td>{{this.fname}} {{this.lname}}</td>
+            <td>{{this.femail}}</td>
+            <td>{{this.fphone}}</td>
+            <td>{{this.is_admin}}</td>
+            <td><a href="/admin/{{this.id}}">view</a></td>
           </tr>
+          {{/each}}
         </tbody>
       </table>
     </div>
