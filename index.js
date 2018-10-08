@@ -85,7 +85,7 @@ app.get('/signup', function (req, res){
 /*********************Admin***************************/
 
 
-app.get('/admin/dashboard', function (req, res){
+app.get('/admin', function (req, res){
   res.render('admin/dashboard', {
     layout: 'admin'
   })
