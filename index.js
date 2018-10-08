@@ -15,12 +15,21 @@ NumeralHelper.registerHelpers(Handlebars);
 
 /******************Connection to Database***************************/
 
+// const client = new Client ({
+//       database: 'thesisDatabase',
+//       user: 'postgres',
+//       password: 'password',
+//       host: 'localhost',
+//       port: 5432
+// });
+
 const client = new Client ({
-      database: 'thesisDatabase',
-      user: 'postgres',
-      password: 'password',
-      host: 'localhost',
-      port: 5432
+      database: 'd6amem65u2nj52',
+      user: 'ubjxmkydixswob',
+      password: 'd4837618406d735fe145adea74b7769e15771d4ff7bca0beba31901eb4315faa',
+      host: 'ec2-50-17-225-140.compute-1.amazonaws.com',
+      port: 5432,
+      ssl: true
 });
 
 client.connect()
