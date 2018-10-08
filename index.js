@@ -120,15 +120,27 @@ app.get('/admin/add_class', function (req, res){
 
 /*********************Faculty***************************/
 
+app.get('/faculty/dashboard', function (req, res){
+  res.render('faculty/dashboard', {
+    layout: 'faculty'
+  })
+})
 
-
-
-
+app.get('/faculty/classes', function (req, res){
+  res.render('faculty/classes', {
+    layout: 'faculty'
+  })
+})
 
 
 /*********************Student***************************/
 
 
+app.get('/student/home', function (req, res){
+  res.render('student/home', {
+    layout: 'student'
+  })
+})
 
 
 
