@@ -12,18 +12,22 @@
             <th>ID</th>
             <th>Batch</th>
             <th>Section</th>
+            <th>Year Level</th>
             <th>Adviser</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
+          {{#each classes}}
           <tr>
-            <td>1</td>
-            <td>2012</td>
-            <td>1</td>
-            <td>Kim Leslie Faina</td>
+            <td>{{this.class_id}}</td>
+            <td>{{this.batches}}</td>
+            <td>{{this.sections}}</td>
+            <td>{{this.year_levels}}</td>
+            <td>{{this.fname}} {{this.lname}}</td>
             <td><a href="">view</a></td>
           </tr>
+          {{/each}}
         </tbody>
       </table>
     </div>

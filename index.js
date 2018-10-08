@@ -102,7 +102,7 @@ app.get('/admin/add_faculty', function (req, res){
 })
 
 app.post('/add_faculty', function (req, res){
-  client.query("INSERT INTO users (fname, lname, email, password, user_type, is_admin, phone, student_number, employee_id) VALUES ('" + req.body.fname + "', '" + req.body.lname + "', '" + req.body.email + "', '" + req.body.password + "', '" + req.body.user_type + "', '" + req.body.is_admin + "', '" + req.body.phone + "', '" + req.body.student_number + "','" + req.body.employee_id + "');")
+  client.query("INSERT INTO users (fname, lname, email, password, user_type, phone, student_number, employee_id) VALUES ('" + req.body.fname + "', '" + req.body.lname + "', '" + req.body.email + "', '" + req.body.password + "', '" + req.body.user_type + "', '" + req.body.phone + "', '" + req.body.student_number + "','" + req.body.employee_id + "');")
   .then((results)=>{
     console.log('results?', results);
     res.redirect('/admin/faculty');
@@ -146,21 +146,59 @@ app.post('/add_student', function (req, res){
 //CLASSES-----------------------------------------------
 
 app.get('/admin/classes', function (req, res){
-  res.render('admin/classes', {
-    layout: 'admin'
-  })
-})
-
-app.get('/admin/add_class', function (req, res){
-  client.query("SELECT id AS id, fname AS fname, lname AS lname FROM users WHERE user_type = 'faculty' AND user_type = 'admin';")
-  .then((faculties)=>{
-    res.render('admin/add_class', {
+  client.query(`
+    SELECT classes.id AS class_id,
+      batches AS batches,
+      sections AS sections,
+      year_levels AS year_levels,
+      fname AS fname,
+      lname AS lname
+    FROM classes
+    INNER JOIN year_levels ON year_levels.id = year_level_id
+    INNER JOIN batches ON batches.id = batch_id
+    INNER JOIN sections ON sections.id = section_id
+    INNER JOIN users ON users.id = adviser_id;
+    `)
+    .then((classes)=>{
+    res.render('admin/classes', {
       layout: 'admin',
-      faculties: faculties.rows
+      classes: classes.rows
     })
   })
 })
 
+app.get('/admin/add_class', function (req, res){
+  client.query("SELECT id AS id, batches AS batches FROM batches;")
+  .then((batches)=>{
+    client.query("SELECT id AS id, year_levels AS year_levels FROM year_levels;")
+    .then((year_levels)=>{
+      client.query("SELECT id AS id, sections AS sections FROM sections;")
+      .then((sections)=>{
+        client.query("SELECT id AS id, fname AS fname, lname AS lname FROM users WHERE user_type = 'faculty';")
+        .then((faculties)=>{
+          res.render('admin/add_class', {
+            layout: 'admin',
+            faculties: faculties.rows,
+            batches:batches.rows,
+            year_levels: year_levels.rows,
+            sections: sections.rows
+          })
+        })
+      })
+    })
+  })
+})
+
+app.post('/add_class', function (req, res){
+  client.query("INSERT INTO classes (batch_id, year_level_id, adviser_id, section_id) VALUES ('" + req.body.batch + "', '" + req.body.year_level + "', '" + req.body.user_id + "', '" + req.body.section + "');")
+  .then((results)=>{
+    console.log('results?', results);
+    res.redirect('/admin/classes');
+  })
+  .catch((err)=>{
+    console.log('error', err);
+  })
+})
 
 
 /*********************Faculty***************************/
