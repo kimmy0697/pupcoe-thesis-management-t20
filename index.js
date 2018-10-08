@@ -43,7 +43,6 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.set('port', (process.env.PORT || 8080));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'static1')));
 
 // Body Parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -53,29 +52,85 @@ app.use(bodyParser.json());
 /*********************Home***************************/
 
 app.get('/', function (req, res) {
-  res.render('home', {
-  });
-});
+  res.render('login', {
+  })
+})
 
-// app.get('/login', function (req, res) {
-//   res.render('/login', {
-//   });
-// });
+app.get('/signup', function (req, res){
+  res.render('signup', {
+  })
+})
 
 // app.post('/login', (req,res) => {
 //   console.log('login data', req.data);
 //   res.render('/login');
 // });
 
-// app.get('/signup', function (req, res){
-//   res.render('/signup', {
-//   });
-// });
 
 // app.post('/signup', (req,res) => {
 //   console.log('signup data', req.data);
 //   res.render('/signup');
 // });
+
+
+/*********************Admin***************************/
+
+
+app.get('/admin/dashboard', function (req, res){
+  res.render('admin/dashboard', {
+    layout: 'admin'
+  })
+})
+
+app.get('/admin/faculty', function (req, res){
+  res.render('admin/faculty', {
+    layout: 'admin'
+  })
+})
+
+app.get('/admin/add_faculty', function (req, res){
+  res.render('admin/add_faculty', {
+    layout: 'admin'
+  })
+})
+
+app.get('/admin/student', function (req, res){
+  res.render('admin/student', {
+    layout: 'admin'
+  })
+})
+
+app.get('/admin/add_student', function (req, res){
+  res.render('admin/add_student', {
+    layout: 'admin'
+  })
+})
+
+app.get('/admin/classes', function (req, res){
+  res.render('admin/classes', {
+    layout: 'admin'
+  })
+})
+
+app.get('/admin/add_class', function (req, res){
+  res.render('admin/add_class', {
+    layout: 'admin'
+  })
+})
+
+/*********************Faculty***************************/
+
+
+
+
+
+
+
+/*********************Student***************************/
+
+
+
+
 
 
 /*********************Server***************************/
