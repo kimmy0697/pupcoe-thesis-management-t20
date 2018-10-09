@@ -21,11 +21,40 @@
             <td>{{this.fname}} {{this.lname}}</td>
             <td>{{this.semail}}</td>
             <td>{{this.sphone}}</td>
-            <td><a href="/admin/student/{{this.id}}">view</a></td>
+            <td><a href="#" data-toggle="modal" data-target="#{{this.user_id}}">view</a></td>
           </tr>
           {{/each}}
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!--MODAL FOR STUDENT DETAILS-->
+
+<div class="modal fade" id="{{this.user_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Student Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>ID: {{id}}</li>
+          <li>Full Name: {{fname}} {{lname}}</li>
+          <li>Student Number: {{number}}</li>
+          <li>Email Address: {{email}}</li>
+          <li>Phone Number: {{phone}}</li>
+          <li>User Type: <span style="text-transform: capitalize">{{user_type}}</span></li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Edit Profile</button>
+      </div>
     </div>
   </div>
 </div>

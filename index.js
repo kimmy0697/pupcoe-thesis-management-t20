@@ -104,12 +104,18 @@ app.get('/admin/faculty', function (req, res){
   })
 })
 
-app.get('/admin/faculty/:id', function (req, res){
-  client.query("SELECT employee_id AS employee_id, fname AS fname, lname AS lname, email AS femail, phone AS fphone, is_admin AS is_admin FROM users WHERE user_type = 'faculty';")
-  .then((faculties)=>{
+app.get('/admin/student/:id', function (req, res){
+  client.query("SELECT id AS user_id, employee_id AS femployee, fname AS fname, lname AS lname, email AS femail, phone AS fphone, user_type AS user_type FROM users WHERE users.id =" + req.params.id + ";")
+  .then((faculty_details)=>{
     res.render('admin/faculty_details', {
       layout: 'admin',
-      faculties: faculties.rows
+      number: student_details.rows[0].femployee,
+      fname: student_details.rows[0].fname,
+      lname: student_details.rows[0].lname,
+      email: student_details.rows[0].femail,
+      phone: student_details.rows[0].fphone,
+      user_type: student_details.rows[0].user_type,
+      id: student_details.rows[0].user_id
     })
   })
 })
@@ -140,17 +146,24 @@ app.get('/admin/student', function (req, res){
   .then((students)=>{
     res.render('admin/student', {
       layout: 'admin',
-      students: students.rows
+      students: students.rows,
     })
   })
 })
 
+
 app.get('/admin/student/:id', function (req, res){
-  client.query("SELECT student_number AS snumber, fname AS fname, lname AS lname, email AS semail, phone AS sphone FROM users WHERE user_type = 'student';")
+  client.query("SELECT id AS user_id, student_number AS snumber, fname AS fname, lname AS lname, email AS semail, phone AS sphone, user_type AS user_type FROM users WHERE users.id =" + req.params.id + ";")
   .then((student_details)=>{
     res.render('admin/student_details', {
       layout: 'admin',
-      students: students.rows
+      number: student_details.rows[0].snumber,
+      fname: student_details.rows[0].fname,
+      lname: student_details.rows[0].lname,
+      email: student_details.rows[0].semail,
+      phone: student_details.rows[0].sphone,
+      user_type: student_details.rows[0].user_type,
+      id: student_details.rows[0].user_id
     })
   })
 })
