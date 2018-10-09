@@ -24,7 +24,7 @@
             <td>{{this.fname}} {{this.lname}}</td>
             <td>{{this.femail}}</td>
             <td>{{this.fphone}}</td>
-            <td>{{this.is_admin}}</td>
+            <td>{{#if this.is_admin}}✓{{else}} {{/if}}</td>
             <td><a href="/admin/{{this.id}}">view</a></td>
           </tr>
           {{/each}}
