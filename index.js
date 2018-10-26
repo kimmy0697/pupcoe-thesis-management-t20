@@ -13,6 +13,12 @@ const NumeralHelper = require("handlebars.numeral");
 NumeralHelper.registerHelpers(Handlebars);
 // const PORT = process.env.PORT || 3000
 
+// required for passport
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+
 /******************Connection to Database***************************/
 
 // const client = new Client ({
@@ -41,6 +47,32 @@ client.connect()
       console.log('Cannot connect to database');
     };
   });
+
+
+// passport.use(new Strategy({
+//     usernameField: 'email',
+//     passwordField: 'password'
+//   },
+//   function(email, password, cb) {
+//     User.getByEmail(email, function(user) {
+//       if (!user) { return cb(null, false); }
+//       if (user.password != password) { return cb(null, false); }
+//       return cb(null, user);
+//     });
+//   }));
+
+// passport.serializeUser(function(user, cb) {
+//   console.log('serializeUser', user)
+//   cb(null, user.id);
+// });
+
+// passport.deserializeUser(function(id, cb) {
+//   User.getById(id, function (user) {
+//     console.log('deserializeUser', user)
+//     cb(null, user);
+//   });
+// });
+
 
 /******************Folder Directories***************************/
 
@@ -293,6 +325,32 @@ app.get('/faculty/dashboard', function (req, res){
 app.get('/faculty/classes', function (req, res){
   res.render('faculty/classes', {
     layout: 'faculty'
+  })
+})
+
+app.get('/faculty/classes/:id', function (req, res){
+  client.query(`
+    SELECT classes.id AS class_id,
+      batches.batches AS batch,
+      sections.sections AS section,
+      users.id AS adviser_id,
+      users.fname AS fname,
+      users.lname AS lname
+    FROM classes
+    INNER JOIN year_levels ON year_levels.id = year_level_id
+    INNER JOIN batches ON batches.id = batch_id
+    INNER JOIN sections ON sections.id = section_id
+    INNER JOIN users ON users.id = adviser_id
+    WHERE classes.id =` + req.params.id + `;
+    `)
+  .then((class_details)=>{
+    res.render('faculty/faculty_details', {
+      layout: 'faculty',
+      batch: class_details.rows[0].batch,
+      section: class_details.rows[0].section,
+      fname: class_details.rows[0].fname,
+      lname: class_details.rows[0].lname
+    })
   })
 })
 
