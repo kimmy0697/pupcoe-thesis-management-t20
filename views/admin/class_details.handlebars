@@ -1,13 +1,13 @@
 <div class="container-fluid" style="padding: 20px 20px">
   <div class="admin_faculty_header">
-    <h3 style="display: inline-block">Batch {{this.batch}} - {{this.section}} Students</h3>
+    <h3 style="display: inline-block">Batch {{classId.batch}} - {{classId.section}} Students</h3>
     <a href="#" data-toggle="modal" data-target="#add_student" style="display:inline-block; float:right"><button class="btn btn-sm ml-auto">&plus;&ensp;Add Student</button></a>
     <a href="/admin/classes" style="display:inline-block; float:right; margin-right: 20px"><button class="btn btn-sm ml-auto">&laquo;&ensp;Go back</button></a>
     <hr>
   </div>
   <div class="admin_faculty_table">
     <div class="table-responsive">
-      <h5>Adviser : {{this.fname}} {{this.lname}}</h5>
+      <h5>Adviser : {{classData.fname}} {{classData.lname}}</h5>
       <table class="table">
         <thead>
           <tr>
@@ -47,12 +47,11 @@
         </button>
       </div>
       <div class="modal-body">
-          <select multiple id="student-list" data-class-id="{{this.class_id}}">
+          <select multiple style="width: 100%" id="student-list" data-class-id="{{this.class_id}}">
               {{#each noClass}}
                 <option name="student_id" id="student_id" value='{{this.id}}'>
                   <div>{{this.student_number}}</div>
-                  <div><em>{{this.fname}} {{this.lname}}</em></div>
-                  <div>{{this.email}}</div>
+                  <div><b>{{this.fname}} {{this.lname}}</b></div>
                 </option>
               {{/each}}
           </select>

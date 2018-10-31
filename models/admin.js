@@ -111,8 +111,12 @@ var actions = {
     },
     classId: (filter,callback) => {
       const query =
-      `SELECT id 
+      `SELECT id,AS id,
+        batches AS batches,
+        sections AS sections
         FROM classes 
+        INNER JOIN batches ON batches.id = classes.batch_id
+        INNER JOIN sections ON sections.id = classes.section_id
         WHERE adviser_id = ${filter.id} `;
        db.query(query)
       .then(res => callback(res.rows))

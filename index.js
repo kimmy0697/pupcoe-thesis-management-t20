@@ -188,10 +188,10 @@ app.post('/login',
   });
 
 
-// app.post('/signup', (req,res) => {
-//   console.log('signup data', req.data);
-//   res.render('/signup');
-// });
+app.post('/signup', (req,res) => {
+  console.log('signup data', req.data);
+  res.render('/signup');
+});
 
 
 /*********************Admin***************************/
@@ -325,55 +325,28 @@ app.get('/admin/classes', isAdmin, function (req, res){
   })
 })
 
-
-app.get('/admin/classes/:id', isAdmin, function (req, res){
-  db.query(`
-    SELECT classes.id AS class_id,
-      batches.batches AS batch,
-      sections.sections AS section,
-      users.id AS adviser_id,
-      users.fname AS fname,
-      users.lname AS lname
-    FROM classes
-    INNER JOIN year_levels ON year_levels.id = year_level_id
-    INNER JOIN batches ON batches.id = batch_id
-    INNER JOIN sections ON sections.id = section_id
-    INNER JOIN users ON users.id = adviser_id
-    WHERE classes.id =` + req.params.id + `;
-    `)
-  .then((class_details)=>{
-    res.render('admin/class_details', {
-      layout: 'admin',
-      batch: class_details.rows[0].batch,
-      section: class_details.rows[0].section,
-      fname: class_details.rows[0].fname,
-      lname: class_details.rows[0].lname
-    })
-  })
-})
-
-// app.get('/admin/classes/:id', function (req, res){
-//   admin.classId({id: req.user.id}, function (classId) {
-//     admin.classListById({}, function (studentList) {
-//       admin.noClassList({}, function (noClassList) {
-//         res.render('admin/class_details', {
-//           id: req.user.id,
-//           student_number: req.user.student_number,
-//           batch: req.user.batches,
-//           section: req.user.sections,
-//           fname: req.user.fname,
-//           lname: req.user.lname,
-//           email: req.user.email,
-//           phone: req.user.phone,
-//           class_id: req.user.class_id,
-//           noClass: noClassList,
-//           students: studentList,
-//           layout: 'admin'
-//         });
-//       });
-//     });
-//   });
-// });
+app.get('/admin/classes/:id', function (req, res){
+  admin.classId({id: req.user.id}, function (classId) {
+    admin.classListById({}, function (classListById) {
+      admin.noClassList({}, function (noClassList) {
+        res.render('admin/class_details', {
+          id: req.user.id,
+          student_number: req.user.student_number,
+          batch: req.user.batches,
+          section: req.user.sections,
+          fname: req.user.fname,
+          lname: req.user.lname,
+          email: req.user.email,
+          phone: req.user.phone,
+          class_id: req.user.class_id,
+          noClass: noClassList,
+          classData: classListById,
+          layout: 'admin'
+        });
+      });
+    });
+  });
+});
 
 app.post('/admin/classes/:id/addStudent', function (req, res) {
   admin.insertStudent({
@@ -429,7 +402,9 @@ app.get('/faculty', isFaculty, function (req, res){
 
 app.get('/faculty/classes', isFaculty, function (req, res) {
   faculty.listByFacultyID({id:req.user.id}, function(classList) {
+    console.log('user', req.user);
     res.render('faculty/classes', {
+      class_id: req.user.id,
       classes: classList,
       batches: req.user.batches,
       sections: req.user.sections,
@@ -438,24 +413,6 @@ app.get('/faculty/classes', isFaculty, function (req, res) {
     });
   });
 });
-
-// app.get('/faculty/classes', function (req, res){
-//   db.query(`
-//     SELECT 
-//     classes.id AS class_id,
-//     batches.batches AS batches,
-//     sections.sections AS sections,
-//     year_levels.year_levels AS year_levels
-//     FROM classes
-//     INNER JOIN year_levels ON year_levels.id = year_level_id
-//     INNER JOIN batches ON batches.id = batch_id
-//     INNER JOIN sections ON sections.id = section_id
-//     WHERE adviser_id =` + req.params.id + `;
-//     `)
-//   res.render('faculty/classes', {
-//     layout: 'faculty'
-//   })
-// })
 
 app.get('/faculty/classes/:id', isFaculty, function (req, res){
   db.query(`
@@ -492,8 +449,6 @@ app.get('/student', isStudent, function (req, res){
     layout: 'student'
   })
 })
-
-
 
 
 /*********************Server***************************/
