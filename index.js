@@ -430,10 +430,10 @@ app.get('/faculty', isFaculty, function (req, res){
 app.get('/faculty/classes', isFaculty, function (req, res) {
   faculty.listByFacultyID({id:req.user.id}, function(classList) {
     res.render('faculty/classes', {
-      classList: classList,
-      batch: req.user.batches,
-      section: req.user.sections,
-      year_level: req.user.year_levels,
+      classes: classList,
+      batches: req.user.batches,
+      sections: req.user.sections,
+      year_levels: req.user.year_levels,
       layout: 'faculty'
     });
   });

@@ -113,7 +113,7 @@ var actions = {
       const query =
       `SELECT id 
         FROM classes 
-        WHERE adviser = ${filter.id} `;
+        WHERE adviser_id = ${filter.id} `;
        db.query(query)
       .then(res => callback(res.rows))
       .catch(e => {
