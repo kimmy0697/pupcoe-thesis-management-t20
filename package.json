@@ -1,0 +1,53 @@
+{
+  "name": "pupcoe-thesis-management-t20",
+  "version": "1.0.0",
+  "description": "Thesis Management System",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "*",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "handlebars": "^4.0.11",
+    "handlebars.moment": "^1.0.4",
+    "handlebars.numeral": "^0.2.0",
+    "jquery": "^3.3.1",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
+    "nodemailer": "^4.6.7",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "nodemon": "^1.18.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "lint": "eslint app.js --fix",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kimmy0697/pupcoe-thesis-management-t20.git"
+  },
+  "author": "Kimmylo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kimmy0697/pupcoe-thesis-management-t20/issues"
+  },
+  "homepage": "https://github.com/kimmy0697/pupcoe-thesis-management-t20#readme"
+}

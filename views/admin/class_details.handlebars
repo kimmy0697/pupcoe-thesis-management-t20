@@ -1,0 +1,66 @@
+<div class="container-fluid" style="padding: 20px 20px">
+  <div class="admin_faculty_header">
+    <h3 style="display: inline-block">Batch {{this.batch}} - {{this.section}} Students</h3>
+    <a href="#" data-toggle="modal" data-target="#add_student" style="display:inline-block; float:right"><button class="btn btn-sm ml-auto">&plus;&ensp;Add Student</button></a>
+    <a href="/admin/classes" style="display:inline-block; float:right; margin-right: 20px"><button class="btn btn-sm ml-auto">&laquo;&ensp;Go back</button></a>
+    <hr>
+  </div>
+  <div class="admin_faculty_table">
+    <div class="table-responsive">
+      <h5>Adviser : {{this.fname}} {{this.lname}}</h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Student Number</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each students}}
+          <tr>
+            <td>{{this.student_number}}</td>
+            <td>{{this.fname}} {{this.lname}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+            <td><a href="">view</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--MODAL FOR STUDENTS-->
+
+<div class="modal fade" id="add_student" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <form method="POST" action="/admin/classes/:id/add_student">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Select Students</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <select multiple id="student-list" data-class-id="{{this.class_id}}">
+              {{#each noClass}}
+                <option name="student_id" id="student_id" value='{{this.id}}'>
+                  <div>{{this.student_number}}</div>
+                  <div><em>{{this.first_name}} {{this.last_name}}</em></div>
+                  <div>{{this.email}}</div>
+                </option>
+              {{/each}}
+          </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save-class-students">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

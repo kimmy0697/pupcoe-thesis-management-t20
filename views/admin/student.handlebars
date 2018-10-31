@@ -1,0 +1,60 @@
+<div class="container-fluid" style="padding: 20px 20px">
+  <h3 style="display: inline-block">STUDENTS</h3>
+  <a href="/admin/add_student" style="display:inline-block; float:right"><button class="btn btn-sm ml-auto">&plus;&ensp;Add Student</button></a>
+  <hr>
+  <div class="admin_faculty_table">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Student Number</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each students}}
+          <tr>
+            <td>{{this.student_number}}</td>
+            <td>{{this.fname}} {{this.lname}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+            <td><a href="#" data-toggle="modal" data-target="#{{this.user_id}}">view</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--MODAL FOR STUDENT DETAILS-->
+
+<div class="modal fade" id="{{this.user_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Student Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>ID: {{id}}</li>
+          <li>Full Name: {{fname}} {{lname}}</li>
+          <li>Student Number: {{number}}</li>
+          <li>Email Address: {{email}}</li>
+          <li>Phone Number: {{phone}}</li>
+          <li>User Type: <span style="text-transform: capitalize">{{user_type}}</span></li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Edit Profile</button>
+      </div>
+    </div>
+  </div>
+</div>

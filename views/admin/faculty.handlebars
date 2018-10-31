@@ -1,0 +1,35 @@
+<div class="container-fluid" style="padding: 20px 20px">
+  <div class="admin_faculty_header">
+    <h3 style="display: inline-block">FACULTIES</h3>
+    <a href="/admin/add_faculty" style="display:inline-block; float:right"><button class="btn btn-sm ml-auto">&plus;&ensp;Add Faculty</button></a>
+    <hr>
+  </div>
+  <div class="admin_faculty_table">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Admin</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each faculties}}
+          <tr>
+            <td>{{this.employee_id}}</td>
+            <td>{{this.fname}} {{this.lname}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+            <td>{{#if this.is_admin}}✓{{else}} {{/if}}</td>
+            <td><a href="/admin/faculty/{{this.id}}">view</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

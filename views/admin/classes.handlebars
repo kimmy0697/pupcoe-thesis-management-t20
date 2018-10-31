@@ -1,0 +1,35 @@
+<div class="container-fluid" style="padding: 20px 20px">
+  <div class="admin_faculty_header">
+    <h3 style="display: inline-block">CLASSES</h3>
+    <a href="/admin/add_class" style="display:inline-block; float:right"><button class="btn btn-sm ml-auto">&plus;&ensp;Add Class</button></a>
+    <hr>
+  </div>
+  <div class="admin_faculty_table">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Batch</th>
+            <th>Section</th>
+            <th>Year Level</th>
+            <th>Adviser</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each classes}}
+          <tr>
+            <td>{{this.class_id}}</td>
+            <td>{{this.batches}}</td>
+            <td>{{this.sections}}</td>
+            <td>{{this.year_levels}}</td>
+            <td>{{this.fname}} {{this.lname}}</td>
+            <td><a href="/admin/classes/{{this.class_id}}">view</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
